@@ -78,8 +78,11 @@ WSGI_APPLICATION = "payroll_manager.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "payroll",
+        "HOST": "localhost",
+        "USER": "usr_payroll",
+        "PASSWORD": "p4yr0llP4ss!*",
     }
 }
 
