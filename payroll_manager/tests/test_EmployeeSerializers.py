@@ -117,8 +117,8 @@ class EmployeeSerializerTestCase(TestCase):
             self.assertEqual(data["email"], base_employee["email"])
             self.assertEqual(data["contact_number"], base_employee["contact_number"])
             self.assertEqual(data["date_of_birth"], base_employee["date_of_birth"])
-            self.assertEqual(data["current_position"]["position"]["name"], "Developer")
-            self.assertEqual(data["current_position"]["position"]["level"], "Junior")
+            self.assertEqual(data["current_position"]["position_description"]["name"], "Developer")
+            self.assertEqual(data["current_position"]["position_description"]["level_name"], "Junior")
             self.assertEqual(data["current_position"]["start_date"], "2023-01-01")
             self.assertIsNone(data["current_position"]["end_date"])
 
@@ -140,8 +140,8 @@ class EmployeeSerializerTestCase(TestCase):
         saved_employee = Employee.objects.get(pk=20)
         deserialized_saved_employee = ListEmployeeSerializer(instance=saved_employee)
         saved_employee_data = deserialized_saved_employee.data
-        self.assertEqual(saved_employee_data["current_position"]["position"]["name"], "Developer")
-        self.assertEqual(saved_employee_data["current_position"]["position"]["level"], "Senior")
+        self.assertEqual(saved_employee_data["current_position"]["position_description"]["name"], "Developer")
+        self.assertEqual(saved_employee_data["current_position"]["position_description"]["level_name"], "Senior")
 
     def test_InvalidContactNumber(self):
         invalid_employee_data = {

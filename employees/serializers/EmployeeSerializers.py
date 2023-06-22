@@ -14,12 +14,12 @@ class ListEmployeeSerializer(ModelSerializer):
         if current_position:
             return ListPositionAssignmentSerializer(current_position).data
         return None
-    
+
     def validate_date_of_birth(self, date_of_birth):
-        """Check that te date of birth is in the past.
-        """
+        """Check that te date of birth is in the past."""
         if date_of_birth > datetime.now().date():
             raise ValidationError("Date of birth is in the future")
+        return date_of_birth
 
     class Meta:
         model = Employee

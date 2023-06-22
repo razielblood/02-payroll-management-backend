@@ -5,9 +5,9 @@ from positions.serializers import ListPositionSerializer
 
 
 class ListPositionAssignmentSerializer(ModelSerializer):
-    position = SerializerMethodField()
+    position_description = SerializerMethodField()
 
-    def get_position(self, obj):
+    def get_position_description(self, obj):
         position = Position.objects.get(pk=obj.position.id)
         if position:
             return ListPositionSerializer(position).data
@@ -15,4 +15,5 @@ class ListPositionAssignmentSerializer(ModelSerializer):
 
     class Meta:
         model = PositionAssignment
-        fields = ["position", "start_date", "end_date"]
+        fields = ["position", "position_description", "start_date", "end_date"]
+        extra_kwargs = {"position": {"write_only": True}}
