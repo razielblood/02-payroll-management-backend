@@ -1,7 +1,9 @@
-from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, SerializerMethodField
+from rest_framework.serializers import ModelSerializer, SerializerMethodField, ValidationError
 
 from employees.models import Employee, PositionAssignment
 from employees.serializers import ListPositionAssignmentSerializer
+
+from datetime import datetime
 
 
 class ListEmployeeSerializer(ModelSerializer):
@@ -12,6 +14,12 @@ class ListEmployeeSerializer(ModelSerializer):
         if current_position:
             return ListPositionAssignmentSerializer(current_position).data
         return None
+    
+    def validate_date_of_birth(self, date_of_birth):
+        """Check that te date of birth is in the past.
+        """
+        if date_of_birth > datetime.now().date():
+            raise ValidationError("Date of birth is in the future")
 
     class Meta:
         model = Employee
